@@ -1,0 +1,17 @@
+{
+  "name": "comments-getter",
+  "version": "1.0.0",
+  "description": "Comments Getter",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "npm run build -- --watch"
+  },
+  "author": "Arun Bohra",
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "@types/node": "^18.14.0",
+    "typescript": "*"
+  }
+}

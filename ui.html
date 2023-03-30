@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Comments</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+  </head>
+  <body>
+    <button id="download-btn">download all comments</button>
+
+    <script>
+      const downloadButton = document.getElementById("download-btn");
+      downloadButton.addEventListener("click", () => {
+        parent.postMessage({ pluginMessage: "download-comments" }, "*");
+      });
+
+      onmessage = (event) => {
+        const comments = event.data.pluginMessage.comments || [];
+        downloadCsvData(comments);
+      };
+
+      const downloadCsvData = (data) => {
+        const filteredData = data.map(
+          ({ uuid, client_meta, user, ...rest }) => ({
+            ...rest,
+            user_name: user.handle,
+            user_id: user.id,
+          })
+        );
+
+        // Convert data to CSV format
+        const csv = Papa.unparse(filteredData);
+
+        // Create a Blob object from the CSV data
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+        // Create a URL object from the Blob
+        const url = URL.createObjectURL(blob);
+
+        // Download the file
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "comments-getter",
+  "id": "1208844779701582009",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "enablePrivatePluginApi": true,
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "ui": "ui.html"
+}
